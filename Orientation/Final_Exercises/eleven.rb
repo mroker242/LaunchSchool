@@ -1,0 +1,1 @@
+#i like the File class because you can do so many things with files. Create, write to, deal with separators, etc.
