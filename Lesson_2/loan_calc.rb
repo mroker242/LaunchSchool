@@ -24,30 +24,31 @@ loop do
     end
   end
 
-  mo_rate = ''
+  monthly_rate = ''
   puts 'what is the interest rate?'
   loop do
-    mo_rate = gets.chomp.to_i
-    mo_rate = (mo_rate.to_f / 100) / 12
+    monthly_rate = gets.chomp.to_i
+    monthly_rate = (monthly_rate.to_f / 100) / 12
 
-    if mo_rate == 0
+    if monthly_rate == 0
       puts 'Please input a correct number:'
     else
       break
     end
   end
 
-  def monthy_fixed(loan, duration, mo_rate)
-    mo_rate_added = mo_rate + 1
-    mo_rate_powered = mo_rate_added**duration
-    left_side_equation = mo_rate * mo_rate_powered
-    mo_rate_power = mo_rate_added**duration
-    right_side_equation = mo_rate_power - 1
+  def monthy_fixed(loan, duration, monthly_rate)
+    monthly_rate_added = monthly_rate + 1
+    monthly_rate_powered = monthly_rate_added**duration
+    left_side_equation = monthly_rate * monthly_rate_powered
+    monthly_rate_power = monthly_rate_added**duration
+    right_side_equation = monthly_rate_power - 1
     main_equation = left_side_equation / right_side_equation
-    loan *= main_equation
+    loan * main_equation
   end
 
-  puts "Your monthly rate is: $#{format('%02.2f', monthy_fixed(loan, duration, mo_rate))}"
+  monthly_rate = format('%02.2f', monthy_fixed(loan, duration, monthly_rate))
+  puts "Your monthly rate is: $#{monthly_rate}"
   puts 'Would you like to make another calculation? (y or n)'
   answer = gets.chomp
 
