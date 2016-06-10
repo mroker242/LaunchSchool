@@ -25,15 +25,14 @@ def operation_to_message(op)
 end
 end
 
-
-prompt("Welcome to the calulator! Enter your name: ")
+prompt('Welcome to the calulator! Enter your name: ')
 
 name = ''
 loop do
   name = Kernel.gets().chomp()
 
   if name.empty?()
-    prompt("Make sure you enter your name")
+    prompt('Make sure you enter your name')
   else
     break
   end
@@ -92,9 +91,6 @@ loop do
   end
 
   prompt("#{operation_to_message(operator)} the two numbers")
-
-
-
 
 
   result = case operator
