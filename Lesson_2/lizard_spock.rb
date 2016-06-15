@@ -4,10 +4,29 @@ def prompt(message)
   Kernel.puts("=> #{message}")
 end
 
-computer_choice = VALID_CHOICES.sample
+# computer_choice = VALID_CHOICES.sample
 
 player_score = 0
 computer_score = 0
+
+# def calculate_winner(player1, player2)
+#   if  (player1 == 'rock' && player2 == 'scissors') ||
+#       (player1 == 'paper' && player2 == 'rock') ||
+#       (player1 == 'rock' && player2 == 'lizard') ||
+#       (player1 == 'spock' && player2 == 'lizard') ||
+#       (player1 == 'scissors' && player2 == 'paper') ||
+#       (player1 == 'lizard' && player2 == 'spock') ||
+#       (player1 == 'scissors' && player2 == 'lizard') ||
+#       (player1 == 'lizard' && player2 == 'paper') ||
+#       (player1 == 'paper  ' && player2 == 'spock') ||
+#       (player1 == 'spock' && player2 == 'rock')
+#     player_win = true
+#   elsif player1 == player2
+#     winner = 'draw'
+#   else
+#     player_win = false
+#   end
+# end
 
 def calculate_winner(player1, player2)
   if  (player1 == 'rock' && player2 == 'scissors') ||
@@ -20,11 +39,7 @@ def calculate_winner(player1, player2)
       (player1 == 'lizard' && player2 == 'paper') ||
       (player1 == 'paper  ' && player2 == 'spock') ||
       (player1 == 'spock' && player2 == 'rock')
-    player_win = true
-  elsif player1 == player2
-    winner = 'draw'
-  else
-    player_win = false
+    true
   end
 end
 
@@ -43,15 +58,14 @@ prompt("You can also use r,p,l,sc, or sp")
 
 loop do # loop so that you loop until you get 5 points
   choice = ''
+  computer_choice = VALID_CHOICES.sample
 
   loop do # will loop for valid choices
     prompt("Choose one: #{VALID_CHOICES}")
     choice = Kernel.gets().chomp()
 
     VALID_CHOICES.each do |arr|
-      if arr.start_with?(choice)
-        choice = arr
-      end
+      choice = arr if arr.start_with?(choice)
     end
 
     if !VALID_CHOICES.include?(choice)
@@ -67,7 +81,7 @@ loop do # loop so that you loop until you get 5 points
 
   if winner == "Player"
     puts "You scored!"
-    player_score = add_point(player_score)
+    player_score += 1
   elsif winner == "Computer"
     puts "Computer Scored!"
     computer_score = add_point(computer_score)
@@ -77,12 +91,11 @@ loop do # loop so that you loop until you get 5 points
 
   display_results(player_score, computer_score)
 
-  if (computer_score == 5) || (player_score == 5)
-    if computer_score == 5
-      puts "You lost :("
-    else
-      puts "You won! congratulations!"
-    end
+  if computer_score == 5
+    puts "You lost :("
+    break
+  elsif player_score == 5
+    puts "You won! congratulations!"
     break
   end
 end
