@@ -18,6 +18,15 @@
 - look for trues and true will show what is already taken
 
 
+3. Computer marks a square
+
+- Computers number is 2.
+- Change the method so that an input can only be given for squares that are available
+- If the square is available, then input a 2 for the square
+  - for this you just need to do a random index number and put it into the hash
+  - may need to refactor so that its one method to take the computer and the user
+
+
 
 - logic to show game board with x and o
   - hash shows what keys has 0 and 1
@@ -34,4 +43,11 @@
 
   - the problem right now is that the input that i am receiving is a string and it needs to be
     a variable
+
+
+  - winner is player or computer if they get the combination right ** need to figure this out **
+  - make this a loop. make a loop and break only if one of these conditions equals true
+
+
+
 
