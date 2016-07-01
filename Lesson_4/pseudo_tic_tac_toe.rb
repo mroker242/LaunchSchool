@@ -27,42 +27,7 @@
   - may need to refactor so that its one method to take the computer and the user
 
 
-
-- logic to show game board with x and o
-  - hash shows what keys has 0 and 1
-  - make method so that the key shows 0
-
-
-  - input board
-    - hash
-    - row
-    - column
-    - get the column and row for the person
-    - take that and input a number 1 where it should go
-
-
-  - the problem right now is that the input that i am receiving is a string and it needs to be
-    a variable
-
-
-  - winner is player or computer if they get the combination right ** need to figure this out **
-  - make this a loop. make a loop and break only if one of these conditions equals true
-
-  - the last thing on the item list is having a computer mark an o next to when it plays
-
-
-  - you need to insert all of the x and o and then do a join. Right now its putting an x in , that x takes a place
-    then then now its a different index
-    eg
-    [1,2,3]
-    inserting x into column 2
-    as we do that it becomes [1,2,'x',3]
-    then when we want to do another, and we want to insert x into column 2
-    [1,2,3]
-    it will have to calculate the x and os 
-
-
-  - last thing to do is to see when it is a tie and end it there
+- game_board_full does not work
 
 
 

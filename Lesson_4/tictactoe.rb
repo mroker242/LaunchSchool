@@ -12,6 +12,12 @@ displaya = ''
 displayb = ''
 displayc = ''
 
+hash_values = game_board_hash.values
+
+def board_is_full(hash_values)
+  !hash_values.include?(0)
+end
+
 def display_board(displaya,displayb,displayc,game_board_hash)
 
   game_board_hash.each do |k,v|
@@ -90,8 +96,6 @@ def input_board(row,column,hash)
   end        
 end
 
-
-
 def computer_choice(game_board_hash)
   computer_choice = rand(game_board_hash.length) - 1
   output = game_board_hash.keys[computer_choice]
@@ -114,7 +118,6 @@ else
   end
 end
 
-# this calculates the amount of spaces x would have to go to be inserted
 def determine_number(array_total,input)
   array_total = array_total.length
   if array_total > 4
@@ -129,11 +132,19 @@ end
 
 
 
+
+
+
 loop do
 
-  loop do #this is if someone wins
+  game_board_hash = {'a1' => 0, 'a2' => 0, 'a3' => 0,
+                     'b1' => 0, 'b2' => 0, 'b3' => 0,
+                     'c1' => 0, 'c2' => 0, 'c3' => 0}
 
-    # display_board(a,b,c)
+
+  loop do 
+
+    
     display_board(displaya,displayb,displayc,game_board_hash)
 
     puts "Please enter the column where you want to play: (1,2,3)"
@@ -141,17 +152,18 @@ loop do
     puts "Please enter the row where you want to play: a,b,c"
     row = gets.chomp()
 
-    display_board(displaya,displayb,displayc,game_board_hash)
-    
-
-
     input_board(row,column,game_board_hash) #user marks a square
 
-    # computer adds to hash and if choice has not been chosen already by user, input something there
+    display_board(displaya,displayb,displayc,game_board_hash)
+
+
     loop do
+
       computer_choice = computer_choice(game_board_hash)
 
-      if game_board_hash[computer_choice] == 0 
+      
+      hash_values = game_board_hash.values
+      if game_board_hash[computer_choice] == 0 || board_is_full(hash_values)
         game_board_hash[computer_choice] = 2
 
         puts "Computer has chosen #{computer_choice}"
@@ -160,27 +172,22 @@ loop do
       end
     end
 
+
+
+    hash_values = game_board_hash.values
     
-
-    # display_board(a,b,c)
-
-    p game_board_hash
-
-    if !game_board_hash.has_value?(0)
-      puts "board is full!"
-      break
-    end
-
-
     if game_logic(game_board_hash,1)
       puts "You win!"
       break
       elsif game_logic(game_board_hash,2)
         puts "Computer wins!"
         break
+      elsif board_is_full(hash_values) # i stil have to do this
+        puts "This is a tie."
+        break   
     end
+
   end
-    
 
 
   puts "Do you want to play again? (y or n)"
@@ -188,14 +195,6 @@ loop do
   if decision == 'n'
     break
   end
+
 end 
-
-
-
-
-
-
-
-
-
 
