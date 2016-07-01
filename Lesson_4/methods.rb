@@ -13,6 +13,13 @@ end
 p computer_choice = computer_choice(game_board_hash)
 
 
+answer = gets.chomp
+
+p answer
+
+
+
+
 
 
 
