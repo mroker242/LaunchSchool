@@ -47,7 +47,7 @@ end
 def computer_places_piece!(brd)
   square = nil
 
-  # offense
+   # offense
   if !square
     WINNING_LINES.each do |line|
       square = find_at_risk_square(line, brd, COMPUTER_MARKER)
@@ -55,11 +55,18 @@ def computer_places_piece!(brd)
     end
   end
 
-  # defense 
+  # defense first
   WINNING_LINES.each do |line|
     square = find_at_risk_square(line, brd, PLAYER_MARKER)
     break if square
   end
+
+
+  if brd[5] == INITIAL_MARKER
+    brd[5] = COMPUTER_MARKER
+  end
+
+  #binding.pry
 
   # just pick a square
   if !square
@@ -67,6 +74,22 @@ def computer_places_piece!(brd)
   end
 
   brd[square] = COMPUTER_MARKER
+end
+
+def board_full?(brd)
+  empty_squares(brd) == []
+end
+
+def someone_won?(brd)
+  !!detect_winner(brd)
+end
+
+def find_at_risk_square(line, board, marker)
+  if board.values_at(*line).count(PLAYER_MARKER) == 2
+    board.select{|k,v| line.include?(k) && v == INITIAL_MARKER}.keys.first
+  else
+    nil
+  end
 end
       
 
@@ -99,14 +122,29 @@ end
 
 loop do
   board = initialize_board
+  prompt "Who do you want to play first?"
+  who_plays_first = gets.chomp
 
   loop do
     display_board(board)
-    player_places_piece!(board)
-    break if someone_won?(board) || board_full?(board)
-    computer_places_piece!(board)
+    # taking this out for new code temporarily
+    # player_places_piece!(board)
+    # break if someone_won?(board) || board_full?(board)
+    # computer_places_piece!(board)
 
-    break if someone_won?(board) || board_full?(board)
+    # break if someone_won?(board) || board_full?(board)
+
+    if who_plays_first ==  'player'
+  player_places_piece!(board)
+  break if someone_won?(board) || board_full?(board)
+  computer_places_piece!(board)
+  break if someone_won?(board) || board_full?(board)
+else
+  computer_places_piece!(board)
+  break if someone_won?(board) || board_full?(board)
+  player_places_piece!(board)
+  break if someone_won?(board) || board_full?(board)
+end
   end
 
   display_board(board)
