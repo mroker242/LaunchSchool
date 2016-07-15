@@ -51,14 +51,12 @@ def sum_of_values(person_hand)
        card[1] == 'K'
       count += 10
     end
-
     count += card[1].to_i
-
     if count < 11 && card[1] == 'A'
       count += 11
     elsif count > 10 && card[1] == 'A'
       count += 1
-    end    
+    end
   end
   count
 end
@@ -72,7 +70,6 @@ def busted?(player_hand)
 end
 
 def winner(player_score, dealer_score)
-  # winner_score = ''
   if player_score > 21
     "PLAYER_BUSTED"
   elsif dealer_score > 21
@@ -133,10 +130,10 @@ loop do
     loop do
       prompt("Do you want to hit or stay?(type hit or stay)")
       answer = gets.chomp
-      break if answer == 'hit' || 'stay'
+      break if answer == 'hit' || answer == 'stay'
       prompt("Sorry, you must enter hit or stay")
     end
- 
+
     if answer == 'hit'
       prompt("You chose to hit!")
       hit(deck, player_cards)
@@ -145,8 +142,8 @@ loop do
       prompt("Your total is now #{player_count}")
     end
 
-     break if answer == 'stay' || busted?(player_count)
-   end
+    break if answer == 'stay' || busted?(player_count)
+  end
 
   if busted?(player_count)
     winner = winner(player_count, dealer_count)
