@@ -1,5 +1,8 @@
 require 'pry'
 
+GAME_NAME = '21'.to_i
+GAME_LIMIT = '17'.to_i
+
 def prompt(msg)
   puts "=> #{msg}"
 end
@@ -62,17 +65,13 @@ def sum_of_values(person_hand)
 end
 
 def busted?(player_hand)
-  if player_hand > 21
-    true
-  else
-    false
-  end
+  player_hand > GAME_NAME
 end
 
 def winner(player_score, dealer_score)
-  if player_score > 21
+  if player_score > GAME_NAME
     "PLAYER_BUSTED"
-  elsif dealer_score > 21
+  elsif dealer_score > GAME_NAME
     "DEALER_BUSTED"
   elsif player_score > dealer_score
     'PLAYER_WINNER'
@@ -81,7 +80,7 @@ def winner(player_score, dealer_score)
   elsif player_score == dealer_score
     'DRAW'
   end
-end
+end 
 
 def display_winner(winner)
   if winner == 'PLAYER_WINNER'
@@ -104,15 +103,55 @@ def play_again?
   answer.downcase.start_with?('y')
 end
 
-loop do
+def grand_ending(dealer_cards, player_cards, dealer_winner, player_winner)
+  puts "=============="
+  prompt "Dealer has #{dealer_cards}, for a total of: #{sum_of_values(dealer_cards)}"
+  prompt "Player has #{player_cards}, for a total of: #{sum_of_values(player_cards)}"
+  prompt("Dealer has won #{dealer_winner} games and player has won #{player_winner}")
+  puts "=============="
+end
+
+def final_winner(winner)
+  if winner == 5
+    puts "You won the overall game!"
+  end
+end
+
+def player_add_score(score)
+  score += 1
+end
+
+def add_winner(winner, player_score, dealer_score)
+  if winner == "PLAYER_WINNER"
+    "add_player"
+  elsif winner == "DEALER_WINNER"
+    "add_dealer"
+  elsif winner == "DEALER_BUSTED"
+    "add_player"
+  elsif winner == "PLAYER_BUSTED"
+    "add_dealer"
+  end
+end
+
+def main_winner?(score)
+  if score == 5
+    prompt("Winner! #{score} is 5!!!")
+  end
+  true
+end
+
+loop do # loop 1 
   system 'clear'
-  prompt("Welcome to 21!")
+  prompt("Welcome to #{GAME_NAME}!")
 
   # initialize vars
   deck = initialize_deck
 
   player_cards = []
   dealer_cards = []
+
+  player_winner = 0
+  dealer_winner = 0
 
   # initial deal
   deal_hand(deck, player_cards)
@@ -124,60 +163,89 @@ loop do
   player_count = sum_of_values(player_cards)
   dealer_count = sum_of_values(dealer_cards)
 
-  # player turn
-  loop do
-    answer = nil
+    loop do # this is the main game loop , you break to this if you reach 5 games
+
+    player_cards = []
+    dealer_cards = []
+
+    deal_hand(deck, player_cards)
+    deal_hand(deck, dealer_cards)
+
+    # player turn
+    loop do # loop 2 inside loop 1
+      answer = nil
+      loop do
+        prompt("Do you want to hit or stay?(type hit or stay)")
+        answer = gets.chomp
+        break if answer == 'hit' || answer == 'stay'
+        prompt("Sorry, you must enter hit or stay")
+      end
+
+      if answer == 'hit'
+        prompt("You chose to hit!")
+        hit(deck, player_cards)
+        prompt("Your hand is now #{display_player_hand(player_cards)}")
+        player_count = sum_of_values(player_cards)
+        prompt("Your total is now #{player_count}")
+      end
+
+      break if answer == 'stay' || busted?(player_count)
+    end
+
+    if busted?(player_count)
+      winner = winner(player_count, dealer_count)
+      add_winner(winner, player_winner, dealer_winner) == "add_player" ? player_winner = player_winner + 1 : player_winner += 0
+      add_winner(winner, player_winner, dealer_winner) == "add_dealer" ? dealer_winner = dealer_winner + 1 : dealer_winner += 0
+      main_winner?(player_winner) ? prompt("You won the overall game!") : false
+      display_winner(winner)
+      grand_ending(dealer_cards, player_cards, dealer_winner, player_winner)
+      final_winner(player_winner)
+      
+      break if main_winner?(dealer_winner) || main_winner?(player_winner) 
+      play_again? ? next : break
+      break
+    else
+      prompt("You chose to stay!")
+    end
+
+    # dealer turn
+    prompt("Dealer turn...")
+
     loop do
-      prompt("Do you want to hit or stay?(type hit or stay)")
-      answer = gets.chomp
-      break if answer == 'hit' || answer == 'stay'
-      prompt("Sorry, you must enter hit or stay")
+      break if busted?(dealer_count) || sum_of_values(dealer_cards) >= GAME_LIMIT
+      prompt("Dealer hits!")
+      hit(deck, dealer_cards)
+      dealer_count = sum_of_values(dealer_cards)
+      prompt("Dealer now has #{dealer_cards.last}")
     end
 
-    if answer == 'hit'
-      prompt("You chose to hit!")
-      hit(deck, player_cards)
-      prompt("Your hand is now #{display_player_hand(player_cards)}")
-      player_count = sum_of_values(player_cards)
-      prompt("Your total is now #{player_count}")
+    dealer_total = sum_of_values(dealer_cards)
+    if busted?(dealer_count)
+      prompt("Dealers total is now #{dealer_total}")
+      winner = winner(player_count, dealer_count)
+      add_winner(winner, player_winner, dealer_winner) == "add_player" ? player_winner += 1 : player_winner += 0
+      add_winner(winner, player_winner, dealer_winner) == "add_dealer" ? dealer_winner += 1 : dealer_winner += 0
+      main_winner?(dealer_winner) ? prompt("You won the overall game!") : false
+      display_winner(winner)
+      grand_ending(dealer_cards, player_cards, dealer_winner, player_winner)
+      final_winner(DEALER_WINNER)
+      break if main_winner?(dealer_winner) || main_winner?(player_winner) 
+      play_again? ? next : break
+    else
+      prompt("Dealer stays at #{dealer_total}")
     end
 
-    break if answer == 'stay' || busted?(player_count)
-  end
+    final_winner(winner)
 
-  if busted?(player_count)
+    puts "Dealers hand is #{dealer_count} and your hand is #{player_count}"
     winner = winner(player_count, dealer_count)
+
+    grand_ending(dealer_cards, player_cards, dealer_winner, player_winner)
+
     display_winner(winner)
-    play_again? ? next : break
-    break
-  else
-    prompt("You chose to stay!")
+    break if main_winner?(dealer_winner) || main_winner?(player_winner) 
+    break unless play_again? 
   end
 
-  # dealer turn
-  prompt("Dealer turn...")
-
-  loop do
-    break if busted?(dealer_count) || sum_of_values(dealer_cards) >= 17
-    prompt("Dealer hits!")
-    hit(deck, dealer_cards)
-    dealer_count = sum_of_values(dealer_cards)
-    prompt("Dealer now has #{dealer_cards.last}")
-  end
-
-  if busted?(dealer_count)
-    prompt("Dealers total is now #{sum_of_values(dealer_cards)}")
-    winner = winner(player_count, dealer_count)
-    display_winner(winner)
-    play_again? ? next : break
-  else
-    prompt("Dealer stays at #{sum_of_values(dealer_cards)}")
-  end
-
-  puts "Dealers hand is #{dealer_count} and your hand is #{player_count}"
-  winner = winner(player_count, dealer_count)
-
-  display_winner(winner)
-
-  break unless play_again?
+  break if main_winner?(dealer_winner) || main_winner?(player_winner)
 end

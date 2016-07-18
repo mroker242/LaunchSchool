@@ -10,19 +10,13 @@
 
 
 
-aces should be calculate as 1 or 11 depending on if the other card is 10 or less
-
-- initialize a deck
-- deal a hand to a player which removes from the main deck
-- deal a hand to a dealer that also removes from the main deck
-
-- initialize a deck
-- make a method that takes in the deck (which removes from the deck and adds from the deck) and puts two to the player
-
-
-ISSUES
-
-the if clause for hit or stay is wrong
-
-
-- after staying the program just hangs
+- welcome to 21
+- deal cards to player
+  - if bust break loop
+  - if stay carry on
+- deal cards to dealer
+  - if bust break loop
+  - if stay carry on
+- evaluate winner or loser
+- if winner then check if they won 5 games
+- if not then ask if they want to play again
