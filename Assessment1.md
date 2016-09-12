@@ -48,7 +48,7 @@ Here a and be is the same because when you perform something on the a object it 
 This is an important concept to understand. When you initialize a variable it is accessible to the scope you initialize it.
 
 `str = 'hello'`
-``
+
 `loop do`
   `str = 'world'`
   `break`
@@ -57,9 +57,9 @@ This is an important concept to understand. When you initialize a variable it is
 Here the answer will be `world`. This is because the str was initialized on the outer scope so it is accessible on the inner scope. However, if you this the other way around:
 
 `loop do`
-  `str = world`
-  `break`
-`end`
+  str = world
+  break
+end`
 
 `puts str`
 
