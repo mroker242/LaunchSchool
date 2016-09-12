@@ -54,6 +54,9 @@ This is an important concept to understand. When you initialize a variable it is
       break
     end
 
+    puts str
+    'world'
+
 Here the answer will be `world`. This is because the str was initialized on the outer scope so it is accessible on the inner scope. However, if you this the other way around:
 
     loop do
@@ -62,6 +65,7 @@ Here the answer will be `world`. This is because the str was initialized on the 
     end
 
 `puts str`
+`undefined local variable or method `str' for main:Object (NameError)`
 
 Here you would get an error because you are trying to access a variable that was initialized on an inner scope.
 
