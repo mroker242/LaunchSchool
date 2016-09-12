@@ -56,10 +56,10 @@ end```
 
 Here the answer will be `world`. This is because the str was initialized on the outer scope so it is accessible on the inner scope. However, if you this the other way around:
 
-```loop do
+---loop do
   str = world
   break
-end```
+end---
 
 `puts str`
 
