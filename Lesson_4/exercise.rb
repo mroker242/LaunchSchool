@@ -3,17 +3,57 @@ def prompt(msg)
   puts "=> #{msg}"
 end
 
-array1 = %w(Moe Larry Curly Chemp Harpo Chico Groucho Zeppo)
-array2 = []
-array1.each { |value| array2 << value }
-array1.each { |value| value.upcase! if value.start_with?('C') }
-puts array2
+new_var = 4
+old_var = 5
+
+loop do
+  new_var += 1
+  puts "#{new_var}"
+  break if new_var == 10
+end
+
+puts new_var
 
 
-# array2 = [Moe,Larry,Curly,Chemp,Harpo,Chico,Groucho,Zeppo]
+def local(var)
+  b = 'money'
+  puts "inside method the new var is #{var}"
+  puts "the method is #{b}"
+end
 
-# array1 = [Moe,Larry,CURLY,CHEMP,Harpo,CHICO,Groucho,Zeppo]
+p local(new_var)
 
+p b
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 
 
 
