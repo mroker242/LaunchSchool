@@ -20,7 +20,7 @@ You can now inject numbers into an array
 
 Again, this is a useful means of inject. Arr here represents the element (in this case an empty array) that gets acted upon. The n represents the numbers (1-10) that are iterated through. Once an iteration happens, n is appended to arr.
 
-## Passy by Reference vs Pass by Value
+## Pass by Reference vs Pass by Value
 
 Integers are immutable, so when you use another integer, it creates a new one. E.G
 
@@ -41,6 +41,55 @@ a = `%w(Harry loves cake)`
 `p b # => [Harry,loves]`
 
 Here a and be is the same because when you perform something on the a object it does not reassign but arrays are mutable so they can be changed. 
+
+```ruby
+a = 7
+b = a
+
+a = 15
+
+puts b # => 7
+```
+
+b is still 7 because initially a created a new object which is 7. b then pointed to the same object that a created (an object in memory). When a new assignment occured (a = 15) a created a new object and b still pointed to 7.
+
+```ruby
+amethod(param) # => here, it is param = str
+  param += ' world' 
+  param + ' world'
+  param << 'world'
+end
+
+str = 'hello'
+amethod(str)
+p str
+```
+
+on the first line, param += 'world' ... 
+str = 'hello'
+param = str
+param = param + 'world'
+(param is now reassigned and created another string object)
+(so here str remains to be 'hello')
+
+second line, param + 'world'
+str = 'hello'
+param = str
+param + 'world' (+) creates a new string object so string remains to be hello, but the return value of the methos is of course hello world
+
+third line, param << 'world'
+str = 'hello'
+param = str
+param << 'world' so therefore str is changed so now if you did a p str str would be changed
+
+this method all depends on what you want to do. If you want to change the actual variable you can use a destructive method such as <<. If you want str to remain the same but just care about getting the results, use reassignment or + to create a new string.
+
+
+
+
+
+
+
 
 
 ## Variable Scope
