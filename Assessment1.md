@@ -138,6 +138,21 @@ p display_name(name)
 
 This works because you pass in the variable.
 
+```ruby
+a = 5
+
+def some_method()
+  a = 4
+end
+
+puts a
+
+# => 5
+
+```
+
+Here you get 5 because methods create their own scope.
+
 
 
 
