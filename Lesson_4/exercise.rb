@@ -5,13 +5,13 @@ end
 
 
 
-loop do
-  str = 'world'
-  break
+name = 'michael'
+
+def display_name(word)
+  puts name
 end
 
-p str
-
+display_name(name)
 
 
 
