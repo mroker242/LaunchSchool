@@ -207,6 +207,14 @@ puts a
 Here you get 5 because methods create their own scope.
 
 
+## Definitions of functions
+
+select
+Returns a new array when based on the block's return value. If the *return value* evaluates to true, then the element is selected.
+
+
+
+
 
 
 
