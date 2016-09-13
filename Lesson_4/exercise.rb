@@ -5,13 +5,18 @@ end
 
 
 
-name = 'michael'
+a = 9
 
-def display_name(word)
-  puts name
+loop do
+  a = 4
+  b = 7
+  break
 end
 
-display_name(name)
+puts a
+puts b
+
+
 
 
 

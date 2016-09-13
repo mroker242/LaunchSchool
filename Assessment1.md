@@ -45,6 +45,45 @@ Here a and be is the same because when you perform something on the a object it 
 
 ## Variable Scope
 
+Scope is the area where variables can be used. This is determined by where the variable is created or initialized.
+
+One main rule to remember is that the inner scope can access the outer scope, but the outer scope cannot access the inner scope.
+
+```ruby
+name = 'michael'
+
+loop do
+  puts name
+  break
+end
+
+# => michael
+
+```
+
+Here the variable was initialized outside of the scope so you can access it from inside.
+
+```ruby
+a = 5
+
+loop do
+  a = 7
+  b = 9
+  break
+end
+
+puts b
+puts a
+
+# => for the a we can output 7
+# => here we get an undefined local variable or method
+
+```
+
+Here is an error because inside of the block b was initialized but it was accessed outside of the block.
+
+
+
 This is an important concept to understand. When you initialize a variable it is accessible to the scope you initialize it.
 
 `str = 'hello'`
