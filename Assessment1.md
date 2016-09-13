@@ -71,34 +71,31 @@ Here you would get an error because you are trying to access a variable that was
 
 Inside methods, you also cannot call local variables outside of them.
 
-    name = 'michael'
+```ruby
+name = 'michael'
 
-    def display_name(word)
-      puts name
-    end
+def display_name(word)
+  puts name
+end
+```
 
     undefined local variable or method name for main:Object (NameError)
 
 However, you must use the variable that is passed into the argument.
 
 
-    name = 'michael'
-
-    def display_name(word)
-      puts word
-    end
-
-    p display_name(name)
-
-    'michael'
-
 ```ruby
-  a = 9
-  loop do
-    a += 1
-    break if a == 11
-  end
+name = 'michael'
+
+def display_name(word)
+  puts word
+end
+
+p display_name(name)
+
+'michael'
 ```
+
 
 This works because you pass in the variable.
 
