@@ -4,17 +4,15 @@ def prompt(msg)
 end
 
 
-
-a = 9
-
-loop do
-  a = 4
-  b = 7
-  break
+def a_method(str)
+  str += 'world' # => str = str + 'world' ... this is reassignment.. another string object
+  str + 'world' # => also + is a method and this creates another string object
+  str << 'world' # this one mutates the object, is destructive
 end
 
-puts a
-puts b
+a_method('hello')
+
+
 
 
 

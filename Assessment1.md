@@ -86,6 +86,7 @@ Here is an error because inside of the block b was initialized but it was access
 
 This is an important concept to understand. When you initialize a variable it is accessible to the scope you initialize it.
 
+```ruby
 `str = 'hello'`
 
     loop do
@@ -95,13 +96,16 @@ This is an important concept to understand. When you initialize a variable it is
 
     puts str
     'world'
+```
 
 Here the answer will be `world`. This is because the str was initialized on the outer scope so it is accessible on the inner scope. However, if you this the other way around:
 
+```ruby
     loop do
       str = world
       break
     end
+```
 
 `puts str`
 `undefined local variable or method `str' for main:Object (NameError)`
