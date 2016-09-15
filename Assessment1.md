@@ -209,10 +209,10 @@ Here you get 5 because methods create their own scope.
 
 ## Definitions of functions
 
-select
+#### select
 Returns a new array  based on the block's return value. If the *return value* evaluates to true, then the element is selected.
 
-map
+#### map
 map returns a new array based on the blocks return value. Each of the element is transformed based on the return value.
 
 
